@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Туту Рядом</title>
+    <meta
+      name="description"
+      content="Туту Рядом — AI-first сервис коротких поездок по бюджету, времени и настроению."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Prata&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <div class="brand-lockup">
+          <div class="tutu-logo">Туту</div>
+          <div class="brand-copy">
+            <span class="brand-name">Рядом</span>
+            <p class="brand-subline">Поездки рядом на пару свободных дней</p>
+          </div>
+        </div>
+      </header>
+
+      <nav class="service-tabs" aria-label="Разделы Туту">
+        <a href="#" class="service-tab">Авиа</a>
+        <a href="#" class="service-tab">Ж/Д</a>
+        <a href="#" class="service-tab">Автобусы</a>
+        <a href="#" class="service-tab">Отели</a>
+        <a href="#" class="service-tab active">Рядом</a>
+        <a href="#" class="service-tab">Электрички</a>
+      </nav>
+
+      <main>
+        <section class="hero">
+          <div class="hero-copy">
+            <p class="eyebrow">Сервис коротких поездок внутри Туту</p>
+            <h1>Несколько свободных дней, немного бюджета и желание сменить обстановку — остальное найдем.</h1>
+            <p class="lead">
+              Пользователь не выбирает направление вручную. Он задает бюджет, время и настроение, а
+              система собирает три разных сценария поездки на базе travel-данных Туту.
+            </p>
+          </div>
+
+          <aside class="search-panel">
+            <div class="panel-top">
+              <div>
+                <p class="panel-kicker">Подбор на выходные</p>
+                <h2>Туту Рядом</h2>
+              </div>
+            </div>
+
+            <form id="trip-form" class="trip-form">
+              <label class="field-group">
+                <span class="field-label">Бюджет</span>
+                <div class="range-meta">
+                  <strong id="budget-value">15 000 ₽</strong>
+                  <span>на всю поездку</span>
+                </div>
+                <input id="budget" type="range" min="7000" max="40000" step="1000" value="15000" />
+              </label>
+
+              <label class="field-group">
+                <span class="field-label">Время</span>
+                <div class="range-meta">
+                  <strong id="duration-value">3 дня</strong>
+                  <span>короткая поездка</span>
+                </div>
+                <input id="duration" type="range" min="1" max="5" step="1" value="3" />
+              </label>
+
+              <div class="field-group">
+                <span class="field-label">Настроение</span>
+                <div class="mood-grid" id="mood-grid">
+                  <button type="button" class="mood-chip selected" data-mood="Спонтанность">Спонтанность</button>
+                  <button type="button" class="mood-chip selected" data-mood="Впечатления">Впечатления</button>
+                  <button type="button" class="mood-chip" data-mood="Тишина">Тишина</button>
+                  <button type="button" class="mood-chip" data-mood="Еда">Еда</button>
+                  <button type="button" class="mood-chip" data-mood="Природа">Природа</button>
+                  <button type="button" class="mood-chip" data-mood="Романтика">Романтика</button>
+                </div>
+              </div>
+
+              <div class="field-group">
+                <span class="field-label">Есть что-то еще?</span>
+                <div class="prompt-grid">
+                  <input type="text" name="prompt-1" value="Москва" placeholder="Откуда или рядом с чем" />
+                  <input type="text" name="prompt-2" value="исторический" placeholder="Какой вайб нужен" />
+                  <input type="text" name="prompt-3" value="зима" placeholder="Сезон, ограничение или идея" />
+                </div>
+              </div>
+
+              <button class="cta-button" type="submit">ПОГНАЛИ →</button>
+            </form>
+          </aside>
+        </section>
+
+        <section class="status-board hidden" id="status-board" aria-live="polite">
+          <div class="status-line">
+            <span class="status-caption">Собираем поездку</span>
+            <strong id="status-main">Анализируем ваш запрос</strong>
+          </div>
+          <div class="status-steps" id="status-steps"></div>
+        </section>
+
+        <section class="results hidden" id="results">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Подходящие варианты</p>
+              <h2>Три сценария поездки под ваш запрос</h2>
+            </div>
+            <p class="section-copy">
+              Сравните маршруты, темп поездки и бюджет, чтобы выбрать формат, который подходит именно вам.
+            </p>
+          </div>
+
+          <div class="scenario-grid" id="scenario-grid"></div>
+        </section>
+
+        <section class="detail hidden" id="detail">
+          <div class="detail-shell">
+            <div class="detail-head">
+              <div>
+                <p class="eyebrow" id="detail-mode">Неочевидный</p>
+                <h2 id="detail-city">Переславль-Залесский</h2>
+              </div>
+              <button class="ghost-button" id="close-detail" type="button">Скрыть</button>
+            </div>
+
+            <div class="detail-grid">
+              <div class="detail-main">
+                <p class="detail-summary" id="detail-summary"></p>
+
+                <div class="metric-row">
+                  <article class="metric-card">
+                    <span>Бюджет</span>
+                    <strong id="detail-budget"></strong>
+                  </article>
+                  <article class="metric-card">
+                    <span>Длительность</span>
+                    <strong id="detail-duration"></strong>
+                  </article>
+                  <article class="metric-card">
+                    <span>Транспорт</span>
+                    <strong id="detail-transport"></strong>
+                  </article>
+                  <article class="metric-card">
+                    <span>Сценарий fit</span>
+                    <strong id="detail-score"></strong>
+                  </article>
+                </div>
+
+                <div class="timeline-block">
+                  <div class="timeline-head">
+                    <h3>Как пройдет поездка</h3>
+                    <p>Визуальный сценарий поездки, который легко рассказать жюри за 20 секунд.</p>
+                  </div>
+                  <div class="timeline" id="timeline"></div>
+                </div>
+
+                <div class="selection-block">
+                  <div class="selection-head">
+                    <div>
+                      <h3>Где жить и что добавить</h3>
+                      <p>Наведите на карточку, чтобы посмотреть фото, и выберите лучший вариант под поездку.</p>
+                    </div>
+                  </div>
+
+                  <div class="option-group">
+                    <div class="option-heading">
+                      <h4>Отели</h4>
+                      <p>Выбор с ценой за 2 ночи и коротким описанием.</p>
+                    </div>
+                    <div class="option-grid" id="hotel-grid"></div>
+                  </div>
+
+                  <div class="option-group">
+                    <div class="option-heading">
+                      <h4>Экскурсии</h4>
+                      <p>Можно добавить активность прямо в сценарий поездки.</p>
+                    </div>
+                    <div class="option-grid" id="excursion-grid"></div>
+                  </div>
+                </div>
+              </div>
+
+              <aside class="detail-side">
+                <article class="side-card">
+                  <h3>Почему этот вариант</h3>
+                  <ul id="reason-list" class="reason-list"></ul>
+                </article>
+
+                <article class="side-card selected-card">
+                  <h3>Выбрано для маршрута</h3>
+                  <div class="selected-stack">
+                    <div class="selected-item">
+                      <span class="selected-label">Отель</span>
+                      <strong id="selected-hotel-name">Пока не выбран</strong>
+                      <p id="selected-hotel-meta" class="muted">Наведите на карточку и нажмите «Выбрать».</p>
+                    </div>
+                    <div class="selected-item">
+                      <span class="selected-label">Экскурсия</span>
+                      <strong id="selected-excursion-name">Пока не выбрана</strong>
+                      <p id="selected-excursion-meta" class="muted">Можно оставить маршрут свободным или добавить активность.</p>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="side-card">
+                  <h3>Что можно улучшить</h3>
+                  <p class="muted">
+                    AI не начинает поиск заново, а донастраивает выбранный сценарий под новые пожелания.
+                  </p>
+                  <textarea id="refine-input" rows="5">Хочу дневной поезд, красивый отель в центре и готов увеличить бюджет максимум до 17 000 ₽.</textarea>
+                  <button class="secondary-button" id="refine-button" type="button">ДОПИЛИТЬ МАРШРУТ →</button>
+                </article>
+
+                <article class="side-card success-card hidden" id="refine-result">
+                  <h3>Маршрут обновлен</h3>
+                  <p id="refine-summary"></p>
+                </article>
+              </aside>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <template id="scenario-template">
+      <article class="scenario-card">
+        <div class="scenario-top">
+          <div>
+            <p class="scenario-mode"></p>
+            <h3 class="scenario-city"></h3>
+          </div>
+          <span class="scenario-score"></span>
+        </div>
+        <p class="scenario-copy"></p>
+        <div class="scenario-meta"></div>
+        <ul class="scenario-reasons"></ul>
+        <button class="ghost-button scenario-button" type="button">ПОСМОТРЕТЬ →</button>
+      </article>
+    </template>
+
+    <template id="option-template">
+      <article class="option-card">
+        <div class="option-media"></div>
+        <div class="option-body">
+          <div class="option-top">
+            <div>
+              <h5 class="option-title"></h5>
+              <p class="option-subtitle"></p>
+            </div>
+            <span class="option-price"></span>
+          </div>
+          <p class="option-copy"></p>
+          <button class="option-button" type="button">Выбрать</button>
+        </div>
+      </article>
+    </template>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
