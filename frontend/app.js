@@ -235,7 +235,7 @@ function renderTimeline(itinerary) {
   if (!itinerary.length) {
     const card = document.createElement("article");
     card.className = "timeline-day";
-    card.innerHTML = "<h4>Маршрут еще собирается</h4><div class='timeline-event'><div>Подробный таймлайн появится после живого ответа от MCP.</div></div>";
+    card.innerHTML = "<h4>Маршрут еще собирается</h4><div class='timeline-event'><div>Подробный таймлайн появится, как только подгрузятся детали поездки.</div></div>";
     timeline.append(card);
     return;
   }
@@ -281,6 +281,10 @@ function createOptionCard(option) {
   const button = node.querySelector(".option-button");
 
   media.classList.add(`option-media--${option.theme || "violet"}`);
+  if (option.imageUrl) {
+    media.classList.add("option-media--photo");
+    media.style.backgroundImage = `linear-gradient(180deg, rgba(17, 17, 45, 0.08), rgba(17, 17, 45, 0.38)), url("${option.imageUrl}")`;
+  }
   media.textContent = option.badge || "";
   title.textContent = option.title;
   subtitle.textContent = option.subtitle;
@@ -305,14 +309,14 @@ function renderHotel(scenario) {
   clearOptionGrid(hotelGrid);
   if (!scenario.hotel) {
     selectedHotelName.textContent = "Пока без отеля";
-    selectedHotelMeta.textContent = "Этот маршрут собран без подтвержденного варианта проживания.";
+    selectedHotelMeta.textContent = "Для этого сценария проживание пока не подобралось.";
     hotelGrid.append(
       createOptionCard({
         badge: "HOTEL",
-        title: "Отель не подтвержден",
-        subtitle: "Tutu MCP не вернул вариант проживания",
+        title: "Проживание пока не найдено",
+        subtitle: "Можно выбрать сценарий без отеля",
         price: "—",
-        description: "Маршрут можно показать жюри, но живой ссылки на отель пока нет.",
+        description: "Если появится подходящий вариант, он отобразится здесь вместе со ссылкой на бронирование.",
         buttonText: "Нет ссылки",
         theme: "sand",
       })
@@ -329,7 +333,7 @@ function renderHotel(scenario) {
   selectedHotelName.textContent = hotel.name;
   selectedHotelMeta.textContent = hotelMeta.length
     ? hotelMeta.join(" • ")
-    : "Живой отель из ответа MCP";
+    : "Подобранный вариант проживания";
 
   hotelGrid.append(
     createOptionCard({
@@ -337,9 +341,10 @@ function renderHotel(scenario) {
       title: hotel.name,
       subtitle: hotelMeta.join(" • ") || hotel.city,
       price: hotel.total_price_rub ? formatBudget(hotel.total_price_rub) : "Цена уточняется",
+      imageUrl: hotel.image_url,
       description: hotel.purchase
-        ? "Есть реальная ссылка на оформление в корзине."
-        : "Отель показан в маршруте, но ссылка на оформление не пришла.",
+        ? "Фото и ссылка на бронирование доступны в корзине."
+        : "Отель добавлен в маршрут, но ссылка на бронирование пока недоступна.",
       buttonText: hotel.purchase ? "К корзине" : "В маршруте",
       selected: true,
       theme: "violet",
@@ -394,17 +399,17 @@ function renderPurchaseOptions(scenario) {
   const items = purchaseItemsFromScenario(scenario);
 
   if (!items.length) {
-    selectedBookingName.textContent = "Живые ссылки не пришли";
-    selectedBookingMeta.textContent = "Откроется корзина, но в ней пока будет пусто или не хватит частей маршрута.";
+    selectedBookingName.textContent = "Ссылки пока недоступны";
+    selectedBookingMeta.textContent = "Корзина откроется, но часть бронирований может быть недоступна.";
     purchaseNote.textContent =
-      "Сценарий собран, но MCP не вернул ссылок на оформление. Такое бывает на демо-данных или при неполном ответе.";
+      "Сценарий собран, но ссылки на оформление для этого варианта пока недоступны.";
     extrasGrid.append(
       createOptionCard({
         badge: "INFO",
         title: "Пока без бронирования",
-        subtitle: "Нет живых ссылок от Tutu MCP",
+        subtitle: "Ссылки еще не появились",
         price: "—",
-        description: "Маршрут можно доработать через refine или повторить поиск с другими ограничениями.",
+        description: "Можно изменить пожелания и попробовать подобрать другой вариант.",
         buttonText: "Нет ссылки",
         theme: "sand",
       })
@@ -415,7 +420,7 @@ function renderPurchaseOptions(scenario) {
   selectedBookingName.textContent = `${items.length} ссылки на Туту`;
   selectedBookingMeta.textContent = items.map((item) => item.title).join(" • ");
   purchaseNote.textContent =
-    "Кнопка ниже переведет в корзину, где мы соберем все реальные ссылки на оформление по выбранному сценарию.";
+    "Кнопка ниже откроет корзину со всеми доступными ссылками по выбранному сценарию.";
 
   items.forEach((item) => {
     extrasGrid.append(
@@ -565,14 +570,14 @@ async function refreshMcpStatus() {
   try {
     const health = await fetchJSON(`${API}/health`);
     if (health.mcp && health.mcp.available) {
-      mcpStatus.textContent = "Tutu MCP подключен, живой поиск включен";
+      mcpStatus.textContent = "Данные Туту подключены, можно собирать поездку";
       mcpStatus.dataset.state = "ok";
     } else {
-      mcpStatus.textContent = "Tutu MCP сейчас недоступен, возможен деградированный режим";
+      mcpStatus.textContent = "Источник данных сейчас отвечает нестабильно, часть вариантов может не загрузиться";
       mcpStatus.dataset.state = "warn";
     }
   } catch {
-    mcpStatus.textContent = "Не удалось проверить MCP, но интерфейс готов к поиску";
+    mcpStatus.textContent = "Не удалось проверить источник данных, но интерфейс готов к поиску";
     mcpStatus.dataset.state = "warn";
   }
 }

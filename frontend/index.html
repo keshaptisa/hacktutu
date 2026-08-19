@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Prata&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500;600;700;800&family=Prata&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/static/styles.css" />
@@ -20,22 +20,15 @@
     <div class="page-shell">
       <header class="topbar">
         <div class="brand-lockup">
-          <div class="tutu-logo">Туту</div>
           <div class="brand-copy">
-            <span class="brand-name">Рядом</span>
-            <p class="brand-subline">Поездки рядом на пару свободных дней</p>
+            <div class="brand-row">
+              <img class="tutu-logo" src="/static/assets/tutu-logo.png" alt="Tutu" />
+              <span class="brand-name">рядом</span>
+            </div>
+            <p class="brand-subline">Погнали туда, где хорошо</p>
           </div>
         </div>
       </header>
-
-      <nav class="service-tabs" aria-label="Разделы Туту">
-        <a href="#" class="service-tab">Авиа</a>
-        <a href="#" class="service-tab">Ж/Д</a>
-        <a href="#" class="service-tab">Автобусы</a>
-        <a href="#" class="service-tab">Отели</a>
-        <a href="#" class="service-tab active">Рядом</a>
-        <a href="#" class="service-tab">Электрички</a>
-      </nav>
 
       <main>
         <section class="hero">
@@ -53,7 +46,7 @@
               <div>
                 <p class="panel-kicker">Подбор на выходные</p>
                 <h2>Туту Рядом</h2>
-                <p class="panel-status" id="mcp-status">Проверяем подключение к Tutu MCP…</p>
+                <p class="panel-status" id="mcp-status">Проверяем доступность данных…</p>
               </div>
             </div>
 
@@ -160,7 +153,7 @@
                 <div class="timeline-block">
                   <div class="timeline-head">
                     <h3>Как пройдет поездка</h3>
-                    <p>Визуальный сценарий поездки, который легко рассказать жюри за 20 секунд.</p>
+                <p>Короткий и понятный план поездки: дорога, ритм и ключевые точки по дням.</p>
                   </div>
                   <div class="timeline" id="timeline"></div>
                 </div>
@@ -176,7 +169,7 @@
                   <div class="option-group">
                     <div class="option-heading">
                       <h4 id="hotel-heading">Отель</h4>
-                      <p id="hotel-copy">Живой вариант проживания, если его вернул Tutu MCP.</p>
+                      <p id="hotel-copy">Подходящий вариант проживания для выбранного сценария.</p>
                     </div>
                     <div class="option-grid" id="hotel-grid"></div>
                   </div>
@@ -184,7 +177,7 @@
                   <div class="option-group">
                     <div class="option-heading">
                       <h4 id="extras-heading">Что можно оформить на Туту</h4>
-                      <p id="extras-copy">Соберем реальные ссылки на транспорт и бронь, если MCP их вернул.</p>
+                      <p id="extras-copy">Здесь появятся ссылки на транспорт и бронь, если они доступны.</p>
                     </div>
                     <div class="option-grid" id="excursion-grid"></div>
                   </div>
@@ -203,12 +196,12 @@
                     <div class="selected-item">
                       <span class="selected-label">Отель</span>
                       <strong id="selected-hotel-name">Пока не выбран</strong>
-                      <p id="selected-hotel-meta" class="muted">Наведите на карточку и нажмите «Выбрать».</p>
+                      <p id="selected-hotel-meta" class="muted">Откройте карточку, чтобы посмотреть детали и перейти к бронированию.</p>
                     </div>
                     <div class="selected-item">
                       <span class="selected-label">Бронирование</span>
                       <strong id="selected-excursion-name">Пока не собрано</strong>
-                      <p id="selected-excursion-meta" class="muted">После выбора поездки соберем корзину со ссылками на реальное оформление.</p>
+                      <p id="selected-excursion-meta" class="muted">После выбора поездки здесь появятся доступные ссылки на оформление.</p>
                     </div>
                   </div>
                 </article>
@@ -216,7 +209,7 @@
                 <article class="side-card purchase-card">
                   <h3>Купить поездку</h3>
                   <p class="muted" id="purchase-note">
-                    Кнопка переведет в корзину с реальными ссылками на бронирование в Туту, если сервер их вернул.
+                    Кнопка откроет корзину со ссылками на доступные бронирования в Туту.
                   </p>
                   <button class="cta-button" id="buy-button" type="button">КУПИТЬ ПОЕЗДКУ →</button>
                 </article>

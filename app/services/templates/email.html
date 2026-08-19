@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ subject }}</title>
+<style>
+  /* Clients that support <style> get the nice version; the rest fall back to
+     the inline attributes on every element below. */
+  body { margin:0; padding:0; background:#ECECFB; }
+  img { border:0; line-height:100%; outline:none; text-decoration:none; }
+  table { border-collapse:collapse; }
+  a { color:#17106B; }
+  .wrap { width:100%; background:#ECECFB; padding:24px 12px; }
+  .card { width:100%; max-width:600px; margin:0 auto; background:#FFFFFF; border-radius:20px; overflow:hidden; }
+  .pad { padding:32px; }
+  .eyebrow { font:600 11px/1.2 Arial, sans-serif; letter-spacing:.18em; text-transform:uppercase; color:#7B78F5; }
+  .h1 { font:700 34px/1.05 Georgia, 'Times New Roman', serif; color:#17106B; margin:8px 0 0; }
+  .h2 { font:700 15px/1.3 Arial, sans-serif; letter-spacing:.14em; text-transform:uppercase; color:#17106B; margin:0 0 12px; }
+  .p { font:400 15px/1.6 Arial, sans-serif; color:#3A3570; margin:0 0 14px; }
+  .muted { font:400 13px/1.5 Arial, sans-serif; color:#7A76A8; }
+  .row td { font:400 14px/1.5 Arial, sans-serif; color:#17106B; padding:9px 0; border-bottom:1px solid #ECECFB; }
+  .row td.k { color:#7A76A8; width:42%; }
+  .cta { display:inline-block; background:#F4501E; color:#FFFFFF !important; font:700 15px/1 Arial, sans-serif;
+         letter-spacing:.06em; text-decoration:none; padding:16px 28px; border-radius:999px; }
+  .cta-ghost { display:inline-block; background:#ECECFB; color:#17106B !important; font:700 14px/1 Arial, sans-serif;
+         text-decoration:none; padding:14px 24px; border-radius:999px; }
+  .score { background:#CBF23F; border-radius:16px; padding:20px 24px; }
+  .score-num { font:700 46px/1 Georgia, serif; color:#17106B; }
+  .day { background:#F7F7FE; border-radius:14px; padding:16px 18px; margin-bottom:10px; }
+  .time { font:700 13px/1.4 Arial, sans-serif; color:#7B78F5; width:56px; }
+  @media (max-width:480px) {
+    .pad { padding:22px !important; }
+    .h1 { font-size:27px !important; }
+  }
+</style>
+</head>
+<body style="margin:0;padding:0;background:#ECECFB;">
+<div class="wrap" style="background:#ECECFB;padding:24px 12px;">
+  <table class="card" role="presentation" width="600" align="center" style="max-width:600px;background:#FFFFFF;border-radius:20px;">
+
+    <tr>
+      <td style="background:#7B78F5;padding:30px 32px;">
+        <div style="font:700 13px/1 Arial,sans-serif;letter-spacing:.3em;color:#FFFFFF;">E S C A P E</div>
+        <div style="font:400 14px/1.5 Arial,sans-serif;color:#E6E5FF;margin-top:8px;">Твой побег собран</div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="pad" style="padding:32px;">
+        <div class="eyebrow" style="font:600 11px/1.2 Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#7B78F5;">{{ scenario_title }}</div>
+        <h1 class="h1" style="font:700 34px/1.05 Georgia,serif;color:#17106B;margin:8px 0 16px;">{{ destination }}</h1>
+        <p class="p" style="font:400 15px/1.6 Arial,sans-serif;color:#3A3570;margin:0 0 14px;">{{ intro }}</p>
+
+        <table role="presentation" width="100%" class="row">
+          <tr><td class="k" style="font:400 14px/1.5 Arial,sans-serif;color:#7A76A8;padding:9px 0;border-bottom:1px solid #ECECFB;">Даты</td>
+              <td style="font:400 14px/1.5 Arial,sans-serif;color:#17106B;padding:9px 0;border-bottom:1px solid #ECECFB;">{{ dates }}</td></tr>
+          <tr><td class="k" style="font:400 14px/1.5 Arial,sans-serif;color:#7A76A8;padding:9px 0;border-bottom:1px solid #ECECFB;">Длительность</td>
+              <td style="font:400 14px/1.5 Arial,sans-serif;color:#17106B;padding:9px 0;border-bottom:1px solid #ECECFB;">{{ duration }}</td></tr>
+          <tr><td class="k" style="font:400 14px/1.5 Arial,sans-serif;color:#7A76A8;padding:9px 0;border-bottom:1px solid #ECECFB;">Транспорт</td>
+              <td style="font:400 14px/1.5 Arial,sans-serif;color:#17106B;padding:9px 0;border-bottom:1px solid #ECECFB;">{{ transport }}</td></tr>
+          {% if hotel %}
+          <tr><td class="k" style="font:400 14px/1.5 Arial,sans-serif;color:#7A76A8;padding:9px 0;border-bottom:1px solid #ECECFB;">Отель</td>
+              <td style="font:400 14px/1.5 Arial,sans-serif;color:#17106B;padding:9px 0;border-bottom:1px solid #ECECFB;">{{ hotel }}</td></tr>
+          {% endif %}
+          <tr><td class="k" style="font:400 14px/1.5 Arial,sans-serif;color:#7A76A8;padding:9px 0;">Итого</td>
+              <td style="font:700 16px/1.5 Arial,sans-serif;color:#17106B;padding:9px 0;">{{ price }}</td></tr>
+        </table>
+      </td>
+    </tr>
+
+    {% if wishes %}
+    <tr>
+      <td style="padding:0 32px 8px;">
+        <div class="muted" style="font:400 13px/1.5 Arial,sans-serif;color:#7A76A8;">Твои пожелания: {{ wishes }}</div>
+      </td>
+    </tr>
+    {% endif %}
+
+    <tr>
+      <td style="padding:16px 32px 8px;">
+        <table role="presentation" width="100%" class="score" style="background:#CBF23F;border-radius:16px;">
+          <tr>
+            <td style="padding:20px 24px;">
+              <div style="font:700 11px/1 Arial,sans-serif;letter-spacing:.18em;color:#17106B;">ESCAPE SCORE</div>
+              <div class="score-num" style="font:700 46px/1 Georgia,serif;color:#17106B;">{{ score }}</div>
+              <div style="font:400 12px/1.5 Arial,sans-serif;color:#3A3570;">{{ score_rows }}</div>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="pad" style="padding:26px 32px 8px;">
+        <div class="h2" style="font:700 15px/1.3 Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#17106B;margin:0 0 12px;">Маршрут</div>
+        {% for day in days %}
+        <div class="day" style="background:#F7F7FE;border-radius:14px;padding:16px 18px;margin-bottom:10px;">
+          <div style="font:700 13px/1.4 Arial,sans-serif;color:#17106B;margin-bottom:8px;">
+            {{ day.weekday }}{% if day.headline %} · {{ day.headline }}{% endif %}
+          </div>
+          <table role="presentation" width="100%">
+            {% for event in day.events %}
+            <tr>
+              <td class="time" valign="top" style="font:700 13px/1.6 Arial,sans-serif;color:#7B78F5;width:56px;padding:3px 0;">{{ event.time }}</td>
+              <td style="font:400 13px/1.6 Arial,sans-serif;color:#3A3570;padding:3px 0;">
+                {{ event.title }}{% if event.detail %}<br><span style="color:#9995C4;">{{ event.detail }}</span>{% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </table>
+        </div>
+        {% endfor %}
+      </td>
+    </tr>
+
+    <tr>
+      <td style="padding:18px 32px 34px;">
+        <p class="p" style="font:400 15px/1.6 Arial,sans-serif;color:#3A3570;margin:0 0 18px;">{{ closing }}</p>
+        {% if links %}
+          {% for link in links %}
+          <div style="margin-bottom:10px;">
+            <a class="cta" href="{{ link.url }}" style="display:inline-block;background:#F4501E;color:#FFFFFF;font:700 15px/1 Arial,sans-serif;letter-spacing:.06em;text-decoration:none;padding:16px 28px;border-radius:999px;">{{ link.label }} →</a>
+          </div>
+          {% endfor %}
+        {% else %}
+          <div style="background:#F7F7FE;border-radius:14px;padding:16px 18px;">
+            <div style="font:400 13px/1.6 Arial,sans-serif;color:#7A76A8;">
+              Ссылку на оформление даёт Tutu MCP. В этом письме её нет — значит, поиск шёл в демо-режиме.
+              Мы не подставляем ссылки, которых не получили.
+            </div>
+          </div>
+        {% endif %}
+      </td>
+    </tr>
+
+    <tr>
+      <td style="background:#17106B;padding:22px 32px;">
+        <div style="font:400 12px/1.6 Arial,sans-serif;color:#A9A5E8;">
+          ESCAPE · собрано через Tutu MCP{% if demo %} · демо-данные, не результат живого поиска{% endif %}<br>
+          ESCAPE SCORE — эвристическая продуктовая метрика соответствия запросу, а не объективная оценка поездки.
+        </div>
+      </td>
+    </tr>
+
+  </table>
+</div>
+</body>
+</html>

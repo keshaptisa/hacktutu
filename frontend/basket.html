@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Туту Рядом · Корзина</title>
+    <meta
+      name="description"
+      content="Корзина Туту Рядом со ссылками на доступные бронирования."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500;600;700;800&family=Prata&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <div class="basket-page">
+      <header class="topbar">
+        <div class="brand-lockup">
+          <div class="brand-copy">
+            <div class="brand-row">
+              <img class="tutu-logo" src="/static/assets/tutu-logo.png" alt="Tutu" />
+              <span class="brand-name">рядом</span>
+            </div>
+            <p class="brand-subline">Погнали туда, где хорошо</p>
+          </div>
+        </div>
+      </header>
+
+      <main class="basket-shell">
+        <section class="basket-card basket-hero">
+          <p class="eyebrow" style="color: var(--accent);">Корзина бронирований</p>
+          <h1 id="basket-title">Собираем реальные ссылки на Туту…</h1>
+          <p class="basket-copy" id="basket-copy">
+            Здесь появятся ссылки на транспорт и проживание, если они доступны для этого сценария.
+          </p>
+          <div class="basket-actions">
+            <a class="ghost-button" href="/">← Вернуться к подбору</a>
+          </div>
+        </section>
+
+        <section class="basket-card">
+          <h2>Что можно оформить сейчас</h2>
+          <div class="basket-grid" id="basket-grid"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="/static/basket.js"></script>
+  </body>
+</html>

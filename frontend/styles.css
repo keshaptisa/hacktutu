@@ -74,87 +74,62 @@ img {
 
 .topbar {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 12px 4px 20px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 16px;
+  padding: 6px 4px 10px;
 }
 
 .brand-lockup {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.tutu-logo {
-  padding: 12px 18px;
-  border-radius: 999px;
-  background: linear-gradient(135deg, #ff8227 0%, #ff5f1a 100%);
-  color: #ffffff;
-  font-weight: 800;
-  font-size: 1.1rem;
-  letter-spacing: 0.02em;
-  box-shadow: 0 14px 24px rgba(255, 111, 30, 0.24);
+  display: block;
 }
 
 .brand-copy {
   display: grid;
   gap: 2px;
+  padding-bottom: 2px;
+}
+
+.brand-row {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  white-space: nowrap;
+}
+
+.tutu-logo {
+  width: auto;
+  height: 52px;
+  flex: 0 0 auto;
+  mix-blend-mode: multiply;
 }
 
 .brand-name {
-  font-family: "Prata", serif;
-  font-size: 1.5rem;
+  color: var(--cta);
+  font-family: "Manrope", sans-serif;
+  font-size: 2.3rem;
+  font-weight: 900;
+  letter-spacing: -0.12em;
   line-height: 1;
+  text-transform: lowercase;
+  transform: none;
+  margin-left: -2px;
 }
 
 .brand-subline {
   margin: 0;
   color: var(--text-soft);
-  font-size: 0.95rem;
-}
-
-.service-tabs {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-  padding: 12px;
-  background: rgba(255, 255, 255, 0.78);
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  border-radius: 999px;
-  box-shadow: var(--shadow-soft);
-  backdrop-filter: blur(18px);
-}
-
-.service-tab {
-  padding: 16px 20px;
-  border-radius: 999px;
-  color: var(--text-soft);
-  font-weight: 700;
-  transition:
-    background-color 180ms ease,
-    color 180ms ease,
-    transform 180ms ease;
-}
-
-.service-tab:hover,
-.service-tab:focus-visible {
-  color: var(--accent-deep);
-  background: rgba(107, 92, 255, 0.08);
-  outline: none;
-}
-
-.service-tab.active {
-  color: #ffffff;
-  background: linear-gradient(135deg, #7a6dff 0%, #5b47ff 100%);
-  box-shadow: 0 10px 20px rgba(91, 71, 255, 0.24);
+  font-size: 1.08rem;
+  line-height: 1.1;
+  margin-left: 10px;
+  transform: translateY(0);
+  white-space: nowrap;
 }
 
 main {
   display: grid;
   gap: 28px;
-  margin-top: 24px;
+  margin-top: 12px;
 }
 
 .hero {
@@ -747,6 +722,13 @@ textarea:focus {
   text-transform: uppercase;
 }
 
+.option-media--photo {
+  align-items: end;
+  justify-items: start;
+  padding: 16px 18px;
+  text-shadow: 0 2px 8px rgba(12, 12, 34, 0.45);
+}
+
 .option-media--violet {
   background: linear-gradient(135deg, #6d59ff 0%, #30208d 100%);
 }
@@ -979,27 +961,26 @@ textarea {
   }
 
   .topbar {
-    padding-bottom: 14px;
+    padding-bottom: 8px;
   }
 
   .brand-lockup {
-    gap: 12px;
+    display: block;
+  }
+
+  .tutu-logo {
+    height: 38px;
   }
 
   .brand-name {
-    font-size: 1.3rem;
+    font-size: 1.7rem;
+    margin-left: 0;
   }
 
-  .service-tabs {
-    gap: 8px;
-    padding: 8px;
-    overflow-x: auto;
-    flex-wrap: nowrap;
-  }
-
-  .service-tab {
-    padding: 14px 16px;
-    white-space: nowrap;
+  .brand-subline {
+    font-size: 0.96rem;
+    margin-left: 8px;
+    white-space: normal;
   }
 
   .hero {
