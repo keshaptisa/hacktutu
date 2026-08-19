@@ -37,7 +37,8 @@ _ARRIVE_KEYS = ("arrival", "arrive", "arrival_time", "arrivaldatetime", "end", "
 _DURATION_KEYS = ("duration", "travel_time", "duration_minutes", "in_way", "time_in_way", "length")
 _CARRIER_KEYS = ("carrier", "airline", "company", "operator", "brand", "perevozchik")
 _NUMBER_KEYS = ("number", "train_number", "flight_number", "code", "no", "nomer")
-_TRANSFER_KEYS = ("transfers", "stops", "changes", "transfer_count", "peresadki", "segments_count")
+_TRANSFER_KEYS = ("transfers", "stops", "changes", "transfer_count", "peresadki")
+_SEGMENT_COUNT_KEYS = ("segments_count",)
 _NAME_KEYS = ("name", "title", "hotel_name", "caption")
 _STARS_KEYS = ("stars", "star_rating", "category", "zvezd")
 _RATING_KEYS = ("rating", "score", "review_score", "user_rating", "reyting")
@@ -258,7 +259,10 @@ def to_transport_option(
         if duration is None and departure and arrival and arrival > departure:
             duration = int((arrival - departure).total_seconds() // 60)
 
-        transfers = read_int(_get(record, _TRANSFER_KEYS)) or 0
+        transfers = read_int(_get(record, _TRANSFER_KEYS))
+        if transfers is None:
+            segments_count = read_int(_get(record, _SEGMENT_COUNT_KEYS))
+            transfers = max(0, segments_count - 1) if segments_count else 0
         carrier = _get(record, _CARRIER_KEYS)
         number = _get(record, _NUMBER_KEYS)
         url = read_url(record)

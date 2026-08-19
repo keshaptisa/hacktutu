@@ -266,6 +266,7 @@ def build_itinerary(
 
         if index == total_days - 1:
             events.extend(_return_events(candidate))
+        events.sort(key=_event_sort_key)
 
         days.append(
             ItineraryDay(
@@ -370,6 +371,16 @@ def _leg_detail(leg) -> str:
 
 def _hhmm(value: datetime | None) -> str | None:
     return value.strftime("%H:%M") if value else None
+
+
+def _event_sort_key(event: ItineraryEvent) -> tuple[int, int]:
+    """Sort real clock times first; keep soft labels and placeholders last."""
+    parts = event.time.split(":", 1)
+    if len(parts) == 2 and all(part.isdigit() for part in parts):
+        hours, minutes = int(parts[0]), int(parts[1])
+        if 0 <= hours <= 23 and 0 <= minutes <= 59:
+            return (0, hours * 60 + minutes)
+    return (1, 24 * 60)
 
 
 def _duration_words(hours: int) -> str:

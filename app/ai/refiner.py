@@ -423,7 +423,7 @@ def _diff(
                     after=humanize_minutes(after.transport.total_duration_minutes),
                 )
             )
-    if (before.hotel.id if before.hotel else None) != (after.hotel.id if after.hotel else None):
+    if _hotel_signature(before.hotel) != _hotel_signature(after.hotel):
         changes.append(
             RefinementChange(
                 label="Отель",
@@ -479,3 +479,17 @@ def _departure_label(option: TransportOption) -> str:
     if option.segments and option.segments[0].departure:
         return option.segments[0].departure.strftime("%H:%M")
     return "время уточняется"
+
+
+def _hotel_signature(hotel: HotelOption | None) -> tuple[str | None, int | None, str | None, float | None, int | None, float | None] | None:
+    """Meaningful hotel identity for refine diffs, ignoring unstable raw ids."""
+    if hotel is None:
+        return None
+    return (
+        hotel.name,
+        hotel.price_per_night_rub,
+        hotel.district,
+        hotel.distance_to_center_km,
+        hotel.stars,
+        hotel.rating,
+    )
